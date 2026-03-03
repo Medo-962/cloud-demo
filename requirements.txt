@@ -1,0 +1,12 @@
+Flask
+Flask-Cors
+Flask-JWT-Extended
+Flask-SocketIO
+eventlet
+python-dotenv
+PyMySQL
+DBUtils
+googlemaps
+Werkzeug
+gunicorn
+cryptography
