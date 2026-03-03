@@ -1,3 +1,4 @@
+import ssl
 import pymysql
 from pymysql.cursors import DictCursor
 from config import Config
@@ -21,7 +22,7 @@ def init_db_pool():
         port=Config.DB_PORT,
         cursorclass=DictCursor,
         autocommit=True,
-        ssl={'ca': Config.DB_SSL_CA} if Config.DB_SSL_CA else None
+        ssl={'ca': Config.DB_SSL_CA, 'cert_reqs': ssl.CERT_NONE} if Config.DB_SSL_CA else None
     )
     return pool
 
