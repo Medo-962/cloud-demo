@@ -1,7 +1,7 @@
 import math
 import eventlet
 from app.__init__ import socketio
-from app.sockets.driver_sockets import ACTIVE_DRIVERS
+from app.sockets.driver_sockets import ACTIVE_DRIVERS, get_user_from_token
 from app.services.ride_service import update_ride_status
 
 # A dictionary to track which rides are currently being dispatched

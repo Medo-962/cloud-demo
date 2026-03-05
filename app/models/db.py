@@ -9,7 +9,8 @@ pool = None
 
 def init_db_pool():
     global pool
-    pool = PooledDB(
+
+    pool_kwargs = dict(
         creator=pymysql,
         maxconnections=20,
         mincached=2,
@@ -22,8 +23,16 @@ def init_db_pool():
         port=Config.DB_PORT,
         cursorclass=DictCursor,
         autocommit=True,
-        ssl=ssl._create_unverified_context() if Config.DB_SSL_CA else None
     )
+
+    # Aiven (and most cloud DBs) require SSL
+    if Config.DB_SSL:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        pool_kwargs['ssl'] = ctx
+
+    pool = PooledDB(**pool_kwargs)
     return pool
 
 def get_db_connection():
